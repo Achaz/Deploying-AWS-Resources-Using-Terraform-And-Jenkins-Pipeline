@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     parameters {
-        string(name: 'environment', defaultValue: 'terraform', description: 'Workspace/environment file to use for deployment')
+        string(name: 'environment', defaultValue: 'project-17112022', description: 'Workspace/environment file to use for deployment')
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
         booleanParam(name: 'destroy', defaultValue: false, description: 'Destroy Terraform build?')
 
     }
 
-     environment {
+    environment {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
     }
@@ -51,9 +51,6 @@ pipeline {
                 }
            }
            
-                
-            
-
            steps {
                script {
                     def plan = readFile 'tfplan.txt'
