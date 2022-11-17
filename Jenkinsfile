@@ -18,7 +18,7 @@ pipeline {
         stage('checkout') {
             steps {
                  script{
-                        dir("terraform")
+                        dir("project-17112022")
                         {
                             git "https://github.com/Achaz/Deploying-AWS-Resources-Using-Terraform-And-Jenkins-Pipeline.git"
                         }
@@ -34,11 +34,10 @@ pipeline {
             }
             
             steps {
-                bat 'terraform init -input=false'
+                bat "terraform init -input=false"
                 bat "terraform workspace select ${environment} || terraform workspace new ${environment}"
-
-                bat "terraform plan -input=false -out tfplan "
-                bat 'terraform show -no-color tfplan > tfplan.txt'
+                bat "terraform plan -input=false -out tfplan"
+                bat "terraform show -no-color tfplan > tfplan.txt"
             }
         }
         stage('Approval') {
@@ -80,7 +79,10 @@ pipeline {
         steps {
            bat "terraform destroy --auto-approve"
         }
+        
+
     }
 
   }
+
 }
