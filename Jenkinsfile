@@ -35,7 +35,7 @@ pipeline {
             
             steps {
                 bat 'terraform init -input=false'
-                bat "terraform workspace select ${environment} || terraform workspace new '${environment}'"
+                bat "terraform workspace select '${environment}' || terraform workspace new '${environment}'"
 
                 bat "terraform plan -input=false -out tfplan "
                 bat 'terraform show -no-color tfplan > tfplan.txt'
